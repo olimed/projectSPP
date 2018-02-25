@@ -33,7 +33,30 @@ public class DAOUser extends DAO implements IDAOUser {
 
     @Override
     public boolean addUsers(User user) {
-        return false;
+        try{
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO users ('user_login', 'user_passwd', 'user_name', 'user_mail', 'user_telephone') VALUES (?,?,?,?,?)");
+            statement.setString(1, user.getUser_login());
+            statement.setString(2, user.getUser_password());
+            statement.setString(3, user.getUser_name());
+            statement.setString(4, user.getUsre_mail());
+            statement.setString(5, user.getUsre_telephone());
+
+            boolean result = statement.execute();
+            //TODO проверить правильность индекса
+            int index = -1;
+            try {
+                ResultSet rs = statement.getGeneratedKeys();
+                if (rs.next())
+                    index = rs.getInt(1);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            user.setUser_id(index);
+            return result;
+        } catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @Override
