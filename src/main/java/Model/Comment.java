@@ -1,11 +1,13 @@
 package Model;
 
-import java.util.Date;
+//import java.util.Date;
+import java.sql.Date;
 
 public class Comment {
     private int comment_id;
-    private String comment_teat;
+    private String comment_text;
     private Date comment_date;
+    private int comment_user_id;
 
     public int getComment_id() {
         return comment_id;
@@ -15,12 +17,12 @@ public class Comment {
         this.comment_id = comment_id;
     }
 
-    public String getComment_teat() {
-        return comment_teat;
+    public String getComment_text() {
+        return comment_text;
     }
 
-    public void setComment_teat(String comment_teat) {
-        this.comment_teat = comment_teat;
+    public void setComment_text(String comment_text) {
+        this.comment_text = comment_text;
     }
 
     public Date getComment_date() {
@@ -30,4 +32,8 @@ public class Comment {
     public void setComment_date(Date comment_date) {
         this.comment_date = comment_date;
     }
+
+    public  int getComment_user_id(){return comment_user_id;}
+
+    public void setComment_user_id(int comment_user_id){this.comment_user_id = comment_user_id;}
 }
