@@ -1,5 +1,6 @@
 package Model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Tool {
@@ -7,7 +8,7 @@ public class Tool {
     private String tool_name;
     private String tool_mark;
     private String tool_model;
-    private Date tool_year;
+    private LocalDate tool_year;
 
     public int getTool_id() {
         return tool_id;
@@ -41,11 +42,11 @@ public class Tool {
         this.tool_model = tool_model;
     }
 
-    public Date getTool_year() {
+    public LocalDate getTool_year() {
         return tool_year;
     }
 
-    public void setTool_year(Date tool_year) {
+    public void setTool_year(LocalDate tool_year) {
         this.tool_year = tool_year;
     }
 }
