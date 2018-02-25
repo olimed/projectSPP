@@ -20,6 +20,7 @@ public class DAOAgreements extends DAO implements IDAOAgreements {
                 agreement = new Agreements();
                 agreement.setAgr_id(result.getInt("agr_id"));
                 agreement.setAgr_templete(result.getString("agr_template"));
+                agreement.setParentServiceId(result.getInt("service_serv_id"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -32,7 +33,7 @@ public class DAOAgreements extends DAO implements IDAOAgreements {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO agreements ('agr_template', 'service_serv_id') VALUES (?,?)");
             //TODO добавить FK на service_serv_id
             statement.setString(1, agreement.getAgr_templete());
-            statement.setInt(2,agreement.getParentService().getServ_id());
+            statement.setInt(2,agreement.getParentServiceId());
             boolean result = statement.execute();
             agreement.setAgr_id(statement.getGeneratedKeys().getInt(1));
             return result;
@@ -58,7 +59,7 @@ public class DAOAgreements extends DAO implements IDAOAgreements {
         try{
             PreparedStatement statement = connection.prepareStatement("UPDATE agreements SET agr_template = ?, service_serv_id = ? WHERE agr_id = ?)");
             statement.setString(1, agreement.getAgr_templete());
-            statement.setInt(2,agreement.getParentService().getServ_id());
+            statement.setInt(2,agreement.getParentServiceId());
             statement.setInt(3,agreement.getAgr_id());
             boolean result = statement.execute();
             return result;
@@ -79,7 +80,7 @@ public class DAOAgreements extends DAO implements IDAOAgreements {
                 agreement.setAgr_id(result.getInt("agr_id"));
                 agreement.setAgr_templete(result.getString("agr_template"));
                 //TODO Проверить правильность установки родительской услуги
-                //agreement.setParentService(DAOService.getServById(result.getInt("service_serv_id")));
+                agreement.setParentServiceId(result.getInt("service_serv_id"));
                 agreementsList.add((agreement));
             }
         }catch (SQLException e){
