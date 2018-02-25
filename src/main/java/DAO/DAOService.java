@@ -2,6 +2,7 @@ package DAO;
 
 import DAO.Interfaces.IDAOService;
 import Model.Service;
+import Model.Tool;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -104,4 +105,22 @@ public class DAOService extends DAO implements IDAOService{
         return servicesList;
     }
 
+    @Override
+    public List<Integer> getToolsById(int id) {
+        List<Integer> toolIdsList = new ArrayList<Integer>();
+
+        try
+        {
+            PreparedStatement statement = connection.prepareStatement("SELECT tool_id FROM m2m_serv_tool WHERE serv_id = ?");
+            statement.setInt(1, id);
+            ResultSet result = statement.executeQuery();
+            while (result.next())
+            {
+                toolIdsList.add(result.getInt("serv_id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return toolIdsList;
+    }
 }
