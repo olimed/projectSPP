@@ -6,6 +6,15 @@ public class Service {
     private float serv_time;
     private float serv_price;
     private int serv_count_people;
+    private String serv_description;
+
+    public String getServ_description() {
+        return serv_description;
+    }
+
+    public void setServ_description(String sserv_description) {
+        this.serv_description = sserv_description;
+    }
 
     public int getServ_id() {
         return serv_id;
