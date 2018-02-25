@@ -5,6 +5,7 @@
   Time: 0:17
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
@@ -170,9 +171,12 @@
     <p>Мы открыты для ваших идей.</p>
   </div>
 
-  <!--<div class="container">
-  Hello world
-  </div>-->
-
-   </body>
+  <div class="card-footer text-muted card text-white bg-primary" style = "margin-bottom: 0px;">
+    <div class="card-body">
+      <h4 class="card-title">© ООО «OURCOMPANY» 2018</h4>
+      <br>
+      <p class="card-text">blablabla</p>
+    </div>
+  </div>
+  </body>
 </html>
