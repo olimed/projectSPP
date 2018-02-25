@@ -1,6 +1,7 @@
 package DAO;
 
 import DAO.Interfaces.IDAOOrder;
+import DAO.DAO;
 import Model.Order;
 
 import java.sql.Date;
@@ -40,15 +41,7 @@ public class DAOOrder extends DAO implements IDAOOrder {
             statement.setDate(4, Date.valueOf(order.getOrd_date())) ;
             boolean result = statement.execute();
             //TODO проверить правильность индекса
-            int index = -1;
-            try {
-                ResultSet rs = statement.getGeneratedKeys();
-                if (rs.next())
-                    index = rs.getInt(1);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            order.setOrd_id(index);
+            order.setOrd_id(getLastAddedId(statement));
 
             return result;
         } catch (SQLException e){

@@ -35,7 +35,8 @@ public class DAOAgreements extends DAO implements IDAOAgreements {
             statement.setString(1, agreement.getAgr_templete());
             statement.setInt(2,agreement.getParentServiceId());
             boolean result = statement.execute();
-            agreement.setAgr_id(statement.getGeneratedKeys().getInt(1));
+            //TODO проверить правильность индекса
+            agreement.setAgr_id(getLastAddedId(statement));
             return result;
         } catch (SQLException e){
             e.printStackTrace();

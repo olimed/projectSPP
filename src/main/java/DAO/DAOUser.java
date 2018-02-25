@@ -43,15 +43,7 @@ public class DAOUser extends DAO implements IDAOUser {
 
             boolean result = statement.execute();
             //TODO проверить правильность индекса
-            int index = -1;
-            try {
-                ResultSet rs = statement.getGeneratedKeys();
-                if (rs.next())
-                    index = rs.getInt(1);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            user.setUser_id(index);
+            user.setUser_id(getLastAddedId(statement));
             return result;
         } catch (SQLException e){
             e.printStackTrace();
