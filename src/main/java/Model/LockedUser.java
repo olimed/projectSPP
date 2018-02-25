@@ -1,6 +1,7 @@
 package Model;
 
-import java.util.Date;
+//import java.util.Date;
+import java.sql.Date;
 
 public class LockedUser {
     private int user_id;
