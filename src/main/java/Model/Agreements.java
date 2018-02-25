@@ -3,6 +3,15 @@ package Model;
 public class Agreements {
     private int agr_id;
     private String agr_templete;
+    Service parentService;
+
+    public Service getParentService() {
+        return parentService;
+    }
+
+    public void setParentService(Service parentService) {
+        this.parentService = parentService;
+    }
 
     public int getAgr_id() {
         return agr_id;
