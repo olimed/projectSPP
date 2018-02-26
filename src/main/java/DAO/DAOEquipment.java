@@ -3,6 +3,7 @@ package DAO;
 import DAO.Interfaces.IDAOEquipment;
 import Model.Equipment;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,7 +26,7 @@ public class DAOEquipment extends DAO implements IDAOEquipment{
                 equipment.setEquipment_mark(result.getString("equipment_mark"));
                 equipment.setEquipment_model(result.getString("equipment_model"));
                 equipment.setEquipment_state_number(result.getString("equipment_state_number"));
-                equipment.setEquipment_year(result.getDate("equipment_issue_year"));
+                equipment.setEquipment_year(result.getDate("equipment_issue_year").toLocalDate());
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -43,7 +44,7 @@ public class DAOEquipment extends DAO implements IDAOEquipment{
             statement.setString(2, equipment.getEquipment_state_number());
             statement.setString(3, equipment.getEquipment_mark());
             statement.setString(4, equipment.getEquipment_model());
-            statement.setDate(5, equipment.getEquipment_year());
+            statement.setDate(5, Date.valueOf(equipment.getEquipment_year()));
             result = statement.execute();
             equipment.setEquipment_id(statement.getGeneratedKeys().getInt(1));
         } catch (SQLException e) {
@@ -74,7 +75,7 @@ public class DAOEquipment extends DAO implements IDAOEquipment{
             statement.setString(2, equipment.getEquipment_state_number());
             statement.setString(3, equipment.getEquipment_mark());
             statement.setString(4, equipment.getEquipment_model());
-            statement.setDate(5, equipment.getEquipment_year());
+            statement.setDate(5, Date.valueOf(equipment.getEquipment_year()));
 
             result = statement.execute();
             equipment.setEquipment_id(statement.getGeneratedKeys().getInt(1));
@@ -97,7 +98,7 @@ public class DAOEquipment extends DAO implements IDAOEquipment{
                 equipment.setEquipment_mark(result.getString("equipment_mark"));
                 equipment.setEquipment_model(result.getString("equipment_model"));
                 equipment.setEquipment_state_number(result.getString("equipment_state_number"));
-                equipment.setEquipment_year(result.getDate("equipment_issue_year"));
+                equipment.setEquipment_year(result.getDate("equipment_issue_year").toLocalDate());
                 equipmentsList.add((equipment));
             }
 

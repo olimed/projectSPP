@@ -4,7 +4,7 @@ public class Material {
     private int material_id;
     private String material_name;
     private String material_mark;
-    private String material_price;
+    private float material_price;
 
     public int getMaterial_id() {
         return material_id;
@@ -30,7 +30,7 @@ public class Material {
         this.material_mark = material_mark;
     }
 
-    public String getMaterial_price() {
+    public float getMaterial_price() {
         return material_price;
     }
 
