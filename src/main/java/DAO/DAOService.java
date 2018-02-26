@@ -89,6 +89,7 @@ public class DAOService extends DAO implements IDAOService{
 
         try{
             PreparedStatement statement = connection.prepareStatement("SELECT * FROM `service`");
+            //TODO заменить * последовательностью полей
             ResultSet result = statement.executeQuery();
             while (result.next()){
                 Service service = new Service();
@@ -102,6 +103,7 @@ public class DAOService extends DAO implements IDAOService{
 
         }catch (SQLException e){
             e.printStackTrace();
+            //где мое сообщенько!!!
         }
 
         return servicesList;
