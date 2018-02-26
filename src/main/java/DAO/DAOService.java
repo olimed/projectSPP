@@ -25,7 +25,7 @@ public class DAOService extends DAO implements IDAOService{
                 service.setServ_price(result.getFloat("serv_price"));
                 service.setServ_time(result.getFloat("serv_time"));
                 service.setServ_count_people(result.getInt("serv_count_people"));
-                service.setServ_description(result.getString("serv_descriptiion"));
+                service.setServ_description(result.getString("serv_description"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -56,7 +56,7 @@ public class DAOService extends DAO implements IDAOService{
     public boolean delService(Service service) {
         boolean result = false;
         try {
-            PreparedStatement statement = connection.prepareStatement("DELETE * FROM `service` WHERE serv_id = ?");
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM `service` WHERE serv_id = ?");
             statement.setInt(1, service.getServ_id());
             result = statement.executeUpdate() != 0;
         } catch (SQLException e) {
