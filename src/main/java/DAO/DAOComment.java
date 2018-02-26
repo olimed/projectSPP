@@ -40,7 +40,7 @@ public class DAOComment extends DAO implements IDAOComment{
             statement.setString(1, comment.getComment_text());
             statement.setDate(1, comment.getComment_date());
             statement.setInt(1, comment.getComment_user_id());
-            result = statement.execute();
+            result = statement.executeUpdate() != 0;
             comment.setComment_id(statement.getGeneratedKeys().getInt(1)); // андрей не знает работает ли это
         } catch (SQLException e) {
             e.printStackTrace();
@@ -53,7 +53,7 @@ public class DAOComment extends DAO implements IDAOComment{
         try {
             PreparedStatement statement = connection.prepareStatement("DELETE * FROM comments WHERE comment_id = ?");
             statement.setInt(1, comment.getComment_id());
-            result = statement.execute();
+            result = statement.executeUpdate() != 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }

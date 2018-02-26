@@ -43,7 +43,7 @@ public class DAOUser extends DAO implements IDAOUser {
             statement.setString(4, user.getUsre_mail());
             statement.setString(5, user.getUsre_telephone());
 
-            boolean result = statement.execute();
+            boolean result = statement.executeUpdate() != 0;
             //TODO проверить правильность индекса
             user.setUser_id(getLastAddedId(statement));
             return result;
@@ -59,7 +59,7 @@ public class DAOUser extends DAO implements IDAOUser {
         try {
             PreparedStatement statement = connection.prepareStatement("DELETE * FROM users WHERE user_id = ?");
             statement.setInt(1, user.getUser_id());
-            result = statement.execute();
+            result = statement.executeUpdate() != 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -78,7 +78,7 @@ public class DAOUser extends DAO implements IDAOUser {
             statement.setString(5, user.getUsre_telephone());
             statement.setInt(6,user.getUser_id());
 
-            boolean result = statement.execute();
+            boolean result = statement.executeUpdate() != 0;
             return result;
         } catch (SQLException e){
             e.printStackTrace();
