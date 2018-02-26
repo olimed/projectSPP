@@ -36,15 +36,17 @@ public class DAOService extends DAO implements IDAOService{
     public boolean addService(Service service) {
         boolean result = false;
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO service ('serv_name', 'serv_time', 'serv_price', 'serv_count_people', 'serv_description') VALUES(?, ?, ?, ?, ?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO `service` (serv_name, serv_time, serv_price, serv_count_people, serv_description) VALUES(?, ?, ?, ?, ?)");
 
             statement.setString(1, service.getServ_name());
-            statement.setFloat(1, service.getServ_time());
-            statement.setFloat(1, service.getServ_price());
-            statement.setInt(1, service.getServ_count_people());
-            statement.setString(1, service.getServ_description());
+            statement.setFloat(2, service.getServ_time());
+            statement.setFloat(3, service.getServ_price());
+            statement.setInt(4, service.getServ_count_people());
+            statement.setString(5, service.getServ_description());
             result = statement.execute();
-            service.setServ_id(statement.getGeneratedKeys().getInt(1)); // андрей не знает работает ли это
+
+            //TODO проверить правильность индекса
+            service.setServ_id(getLastAddedId(statement));
         } catch (SQLException e) {
             e.printStackTrace();
         }

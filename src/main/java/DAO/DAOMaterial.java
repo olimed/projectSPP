@@ -39,7 +39,7 @@ public class DAOMaterial extends DAO implements IDAOMaterial {
 
             statement.setString(1, material.getMaterial_name());
             statement.setString(2,material.getMaterial_mark());
-            statement.setString(3,material.getMaterial_price());
+            statement.setFloat(3,material.getMaterial_price());
             result = statement.execute();
             material.setMaterial_id(statement.getGeneratedKeys().getInt(1));
         } catch (SQLException e) {
@@ -68,7 +68,7 @@ public class DAOMaterial extends DAO implements IDAOMaterial {
             PreparedStatement statement = connection.prepareStatement("UPDATE materials SET material_name = ?, material_mark = ?, material_price = ? WHERE material_id = ?)");
             statement.setString(1, material.getMaterial_name());
             statement.setString(2, material.getMaterial_mark());
-            statement.setFloat(3, Float.parseFloat(material.getMaterial_price()));
+            statement.setFloat(3, material.getMaterial_price());
             statement.setInt(4, material.getMaterial_id());
 
             result = statement.execute();
