@@ -17,6 +17,16 @@ public class testMainClass {
         service.setServ_price(1500);
         boolean res = daoService.addService(service);
 
+        service = daoService.getServiceById(3);
+
+        service.setServ_price(15555);
+
+        res = daoService.editService(service);
+        service = daoService.getServiceById(3);
+        res = daoService.delService(service);
+
+        service = daoService.getServiceById(3);
+
         /*DAOAgreements daoAgreements = new DAOAgreements();
         Agreements agreements = new Agreements();
         agreements.setAgr_templete(

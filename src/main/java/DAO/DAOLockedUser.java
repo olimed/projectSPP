@@ -35,7 +35,7 @@ public class DAOLockedUser extends DAO implements IDAOLockedUser{
             PreparedStatement statement = connection.prepareStatement("INSERT INTO locked_users ('user_lock_date') VALUES(?)");
 
             statement.setDate(1, lockedUser.getLock_date());
-            result = statement.execute();
+            result = statement.executeUpdate() != 0;
             lockedUser.setUser_id(statement.getGeneratedKeys().getInt(1)); // андрей не знает работает ли это
         } catch (SQLException e) {
             e.printStackTrace();
@@ -48,7 +48,7 @@ public class DAOLockedUser extends DAO implements IDAOLockedUser{
         try {
             PreparedStatement statement = connection.prepareStatement("DELETE * FROM locked_users WHERE user_id = ?");
             statement.setInt(1, lockedUser.getUser_id());
-            result = statement.execute();
+            result = statement.executeUpdate() != 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }

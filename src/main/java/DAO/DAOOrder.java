@@ -39,7 +39,7 @@ public class DAOOrder extends DAO implements IDAOOrder {
             statement.setInt(2, order.getUser_id());
             statement.setFloat(3, order.getOrd_price());
             statement.setDate(4, Date.valueOf(order.getOrd_date())) ;
-            boolean result = statement.execute();
+            boolean result = statement.executeUpdate() != 0;
             //TODO проверить правильность индекса
             order.setOrd_id(getLastAddedId(statement));
 
@@ -55,7 +55,7 @@ public class DAOOrder extends DAO implements IDAOOrder {
         try {
             PreparedStatement statement = connection.prepareStatement("DELETE * FROM orders WHERE ord_id = ?");
             statement.setInt(1, order.getOrd_id());
-            result = statement.execute();
+            result = statement.executeUpdate() != 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -70,7 +70,7 @@ public class DAOOrder extends DAO implements IDAOOrder {
             statement.setFloat(3, order.getOrd_price());
             statement.setDate(4, Date.valueOf(order.getOrd_date())) ;
             statement.setInt(5, order.getOrd_id());
-            boolean result = statement.execute();
+            boolean result = statement.executeUpdate() != 0;
             return result;
         } catch (SQLException e){
             e.printStackTrace();

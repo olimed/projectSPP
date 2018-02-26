@@ -45,7 +45,7 @@ public class DAOEquipment extends DAO implements IDAOEquipment{
             statement.setString(3, equipment.getEquipment_mark());
             statement.setString(4, equipment.getEquipment_model());
             statement.setDate(5, Date.valueOf(equipment.getEquipment_year()));
-            result = statement.execute();
+            result = statement.executeUpdate() != 0;
             equipment.setEquipment_id(statement.getGeneratedKeys().getInt(1));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -59,7 +59,7 @@ public class DAOEquipment extends DAO implements IDAOEquipment{
         try {
             PreparedStatement statement = connection.prepareStatement("DELETE * FROM equipments WHERE equipment_id = ?");
             statement.setInt(1, equipment.getEquipment_id());
-            result = statement.execute();
+            result = statement.executeUpdate() != 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -77,7 +77,7 @@ public class DAOEquipment extends DAO implements IDAOEquipment{
             statement.setString(4, equipment.getEquipment_model());
             statement.setDate(5, Date.valueOf(equipment.getEquipment_year()));
 
-            result = statement.execute();
+            result = statement.executeUpdate() != 0;
             equipment.setEquipment_id(statement.getGeneratedKeys().getInt(1));
         } catch (SQLException e) {
             e.printStackTrace();

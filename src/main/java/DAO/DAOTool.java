@@ -41,7 +41,7 @@ public class DAOTool extends DAO implements IDAOTool{
             statement.setString(1, tool.getTool_mark());
             statement.setString(1, tool.getTool_model());
             statement.setDate(1, Date.valueOf(tool.getTool_year()));
-            result = statement.execute();
+            result = statement.executeUpdate() != 0;
             tool.setTool_id(statement.getGeneratedKeys().getInt(1));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -54,7 +54,7 @@ public class DAOTool extends DAO implements IDAOTool{
         try {
             PreparedStatement statement = connection.prepareStatement("DELETE * FROM tools WHERE tool_id = ?");
             statement.setInt(1, tool.getTool_id());
-            result = statement.execute();
+            result = statement.executeUpdate() != 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -71,7 +71,7 @@ public class DAOTool extends DAO implements IDAOTool{
             statement.setDate(4, Date.valueOf(tool.getTool_year()));
             statement.setInt(5, tool.getTool_id());
 
-            result = statement.execute();
+            result = statement.executeUpdate() != 0;
             tool.setTool_id(statement.getGeneratedKeys().getInt(1));
         } catch (SQLException e) {
             e.printStackTrace();

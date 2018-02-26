@@ -14,7 +14,7 @@ public class DAOCertificate extends DAO implements IDAOCertificate{
     public Certificate getCertificateById(int id){
         Certificate certificate = null;
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM certificates WHERE certificate_id = ?");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM `certificates` WHERE certificate_id = ?");
             statement.setInt(1, id);
 
             ResultSet result = statement.executeQuery();
@@ -35,14 +35,14 @@ public class DAOCertificate extends DAO implements IDAOCertificate{
     public boolean addCertificate(Certificate certificate) {
         boolean result = false;
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO certificates ('certificate_doc', 'certificate_name', 'certificate_date', 'certificate_validity') VALUES(?, ?, ?, ?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO `certificates` (certificate_doc, certificate_name, certificate_date, certificate_validity) VALUES(?, ?, ?, ?)");
 
             statement.setString(1, certificate.getCertificate_doc());
             statement.setString(1, certificate.getCertificate_name());
             statement.setDate(1, certificate.getCertificate_date());
             statement.setDate(1, certificate.getCertificate_validity());
-            result = statement.execute();
-            certificate.setCertificate_id(statement.getGeneratedKeys().getInt(1)); // андрей не знает работает ли это
+            result = statement.executeUpdate() != 0;
+            certificate.setCertificate_id(getLastAddedId(statement));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -52,9 +52,9 @@ public class DAOCertificate extends DAO implements IDAOCertificate{
     public boolean delCertificate(Certificate certificate) {
         boolean result = false;
         try {
-            PreparedStatement statement = connection.prepareStatement("DELETE * FROM certificates WHERE certificate_id = ?");
+            PreparedStatement statement = connection.prepareStatement("DELETE * FROM `certificates` WHERE certificate_id = ?");
             statement.setInt(1, certificate.getCertificate_id());
-            result = statement.execute();
+            result = statement.executeUpdate() != 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -64,15 +64,15 @@ public class DAOCertificate extends DAO implements IDAOCertificate{
     public boolean editCertificate(Certificate certificate) {
         boolean result = false;
         try{
-            PreparedStatement statement = connection.prepareStatement("UPDATE certificates SET certificate_doc = ?, certificate_name = ?, certificate_date = ?, certificate_validity = ? WHERE certificate_id = ?)");
+            PreparedStatement statement = connection.prepareStatement("UPDATE `certificates` SET certificate_doc = ?, certificate_name = ?, certificate_date = ?, certificate_validity = ? WHERE certificate_id = ?)");
             statement.setString(1, certificate.getCertificate_doc());
             statement.setString(2, certificate.getCertificate_name());
             statement.setDate(3, certificate.getCertificate_date());
             statement.setDate(4, certificate.getCertificate_validity());
             statement.setInt(5, certificate.getCertificate_id());
 
-            result = statement.execute();
-            certificate.setCertificate_id(statement.getGeneratedKeys().getInt(1)); //и здесь андрей тоже ничего не знает
+            result = statement.executeUpdate() != 0;
+            certificate.setCertificate_id(getLastAddedId(statement));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -83,7 +83,7 @@ public class DAOCertificate extends DAO implements IDAOCertificate{
         List<Certificate> certificatesList = new ArrayList<Certificate>();
 
         try{
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM certificates");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM `certificates`");
             ResultSet result = statement.executeQuery();
             while (result.next()){
                 Certificate certificate = new Certificate();
