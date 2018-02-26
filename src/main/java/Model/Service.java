@@ -10,6 +10,8 @@ public class Service {
     private int serv_count_people;
     private String serv_description;
     public List<Integer> serv_tools;
+    public List<Integer> serv_materials;
+    public List<Integer> serv_equipment;
 
     public String getServ_description() {
         return serv_description;

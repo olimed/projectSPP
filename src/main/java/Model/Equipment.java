@@ -51,7 +51,7 @@ public class Equipment {
         this.equipment_model = equipment_model;
     }
 
-    public Date getEquipment_year() {
+    public java.sql.Date getEquipment_year() {
         return equipment_year;
     }
 

@@ -116,11 +116,49 @@ public class DAOService extends DAO implements IDAOService{
             ResultSet result = statement.executeQuery();
             while (result.next())
             {
-                toolIdsList.add(result.getInt("serv_id"));
+                toolIdsList.add(result.getInt("tool_id"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return toolIdsList;
+    }
+
+    @Override
+    public List<Integer> getMaterialssById(int id) {
+        List<Integer> materialIdsList = new ArrayList<Integer>();
+
+        try
+        {
+            PreparedStatement statement = connection.prepareStatement("SELECT material_id FROM m2m_serv_material WHERE material_id = ?");
+            statement.setInt(1, id);
+            ResultSet result = statement.executeQuery();
+            while (result.next())
+            {
+                materialIdsList.add(result.getInt("material_id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return materialIdsList;
+    }
+
+    @Override
+    public List<Integer> getEquipmentsById(int id) {
+        List<Integer> equipmentIdsList = new ArrayList<Integer>();
+
+        try
+        {
+            PreparedStatement statement = connection.prepareStatement("SELECT equipment_id FROM m2m_serv_equipment WHERE serv_id = ?");
+            statement.setInt(1, id);
+            ResultSet result = statement.executeQuery();
+            while (result.next())
+            {
+                equipmentIdsList.add(result.getInt("equipment_id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return equipmentIdsList;
     }
 }
