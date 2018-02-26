@@ -14,7 +14,7 @@ public class DAOService extends DAO implements IDAOService{
     public Service getServiceById(int id) {
         Service service = null;
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM service WHERE serv_id = ?");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM `service` WHERE serv_id = ?");
             statement.setInt(1, id);
 
             ResultSet result = statement.executeQuery();
@@ -25,7 +25,7 @@ public class DAOService extends DAO implements IDAOService{
                 service.setServ_price(result.getFloat("serv_price"));
                 service.setServ_time(result.getFloat("serv_time"));
                 service.setServ_count_people(result.getInt("serv_count_people"));
-                service.setServ_description(result.getString("serv_descriptiion"));
+                service.setServ_description(result.getString("serv_description"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -36,15 +36,17 @@ public class DAOService extends DAO implements IDAOService{
     public boolean addService(Service service) {
         boolean result = false;
         try {
-            PreparedStatement statement = connection.prepareStatement("INSERT INTO service ('serv_name', 'serv_time', 'serv_price', 'serv_count_people', 'serv_description') VALUES(?, ?, ?, ?, ?)");
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO `service` (serv_name, serv_time, serv_price, serv_count_people, serv_description) VALUES(?, ?, ?, ?, ?)");
 
             statement.setString(1, service.getServ_name());
-            statement.setFloat(1, service.getServ_time());
-            statement.setFloat(1, service.getServ_price());
-            statement.setInt(1, service.getServ_count_people());
-            statement.setString(1, service.getServ_description());
-            result = statement.execute();
-            service.setServ_id(statement.getGeneratedKeys().getInt(1)); // андрей не знает работает ли это
+            statement.setFloat(2, service.getServ_time());
+            statement.setFloat(3, service.getServ_price());
+            statement.setInt(4, service.getServ_count_people());
+            statement.setString(5, service.getServ_description());
+            result = statement.executeUpdate() != 0;
+
+            //TODO проверить правильность индекса
+            service.setServ_id(getLastAddedId(statement));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -54,9 +56,9 @@ public class DAOService extends DAO implements IDAOService{
     public boolean delService(Service service) {
         boolean result = false;
         try {
-            PreparedStatement statement = connection.prepareStatement("DELETE * FROM service WHERE serv_id = ?");
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM `service` WHERE serv_id = ?");
             statement.setInt(1, service.getServ_id());
-            result = statement.execute();
+            result = statement.executeUpdate() != 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -66,16 +68,16 @@ public class DAOService extends DAO implements IDAOService{
     public boolean editService(Service service) {
         boolean result = false;
         try{
-            PreparedStatement statement = connection.prepareStatement("UPDATE service SET serv_name = ?, serv_time = ?, serv_count_people = ?, serv_price = ?, serv_description = ? WHERE serv_id = ?)");
+            PreparedStatement statement = connection.prepareStatement("UPDATE `service` SET serv_name = ?, serv_time = ?, serv_count_people = ?, serv_price = ?, serv_description = ? WHERE serv_id = ?");
             statement.setString(1, service.getServ_name());
             statement.setFloat(2, service.getServ_time());
             statement.setInt(3, service.getServ_count_people());
             statement.setFloat(4, service.getServ_price());
             statement.setString(5, service.getServ_description());
-            statement.setInt(5, service.getServ_id());
+            statement.setInt(6, service.getServ_id());
 
-            result = statement.execute();
-            service.setServ_id(statement.getGeneratedKeys().getInt(1)); //и здесь андрей тоже ничего не знает
+            result = statement.executeUpdate() != 0;
+            //service.setServ_id(getLastAddedId(statement));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -86,7 +88,8 @@ public class DAOService extends DAO implements IDAOService{
         List<Service> servicesList = new ArrayList<Service>();
 
         try{
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM service");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM `service`");
+            //TODO заменить * последовательностью полей
             ResultSet result = statement.executeQuery();
             while (result.next()){
                 Service service = new Service();
@@ -100,6 +103,7 @@ public class DAOService extends DAO implements IDAOService{
 
         }catch (SQLException e){
             e.printStackTrace();
+            //где мое сообщенько!!!
         }
 
         return servicesList;
@@ -111,7 +115,7 @@ public class DAOService extends DAO implements IDAOService{
 
         try
         {
-            PreparedStatement statement = connection.prepareStatement("SELECT tool_id FROM m2m_serv_tool WHERE serv_id = ?");
+            PreparedStatement statement = connection.prepareStatement("SELECT tool_id FROM `m2m_serv_tool` WHERE serv_id = ?");
             statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
             while (result.next())
@@ -130,7 +134,7 @@ public class DAOService extends DAO implements IDAOService{
 
         try
         {
-            PreparedStatement statement = connection.prepareStatement("SELECT material_id FROM m2m_serv_material WHERE material_id = ?");
+            PreparedStatement statement = connection.prepareStatement("SELECT material_id FROM `m2m_serv_material` WHERE material_id = ?");
             statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
             while (result.next())
@@ -149,7 +153,7 @@ public class DAOService extends DAO implements IDAOService{
 
         try
         {
-            PreparedStatement statement = connection.prepareStatement("SELECT equipment_id FROM m2m_serv_equipment WHERE serv_id = ?");
+            PreparedStatement statement = connection.prepareStatement("SELECT equipment_id FROM `m2m_serv_equipment` WHERE serv_id = ?");
             statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
             while (result.next())
