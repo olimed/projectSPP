@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.List;
+
 public class User {
     private int user_id;
     private String user_login;
@@ -7,6 +9,7 @@ public class User {
     private String user_name;
     private String usre_mail;
     private String usre_telephone;
+    public List<Integer> user_orders;
 
     public int getUser_id() {
         return user_id;

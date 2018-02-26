@@ -10,4 +10,5 @@ public interface IDAOUser {
     boolean delUser(User user);
     boolean editUser(User user);
     List<User> getAllUsers();
+    List<Integer> getOrdersById(int id);
 }

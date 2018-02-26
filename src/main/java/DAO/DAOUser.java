@@ -109,4 +109,23 @@ public class DAOUser extends DAO implements IDAOUser {
         }
         return usersList;
     }
+
+    @Override
+    public List<Integer> getOrdersById(int id) {
+        List<Integer> ordersIdList = new ArrayList<Integer>();
+
+        try
+        {
+            PreparedStatement statement = connection.prepareStatement("SELECT ord_id FROM orders WHERE user_id = ?");
+            statement.setInt(1, id);
+            ResultSet result = statement.executeQuery();
+            while (result.next())
+            {
+                ordersIdList.add(result.getInt("ord_id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ordersIdList;
+    }
 }
