@@ -34,7 +34,7 @@ public class Material {
         return material_price;
     }
 
-    public void setMaterial_price(String material_price) {
+    public void setMaterial_price(float material_price) {
         this.material_price = material_price;
     }
 }
