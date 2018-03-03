@@ -1,6 +1,7 @@
 package Model;
 
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Equipment {
@@ -9,7 +10,7 @@ public class Equipment {
     private String equipment_state_number;
     private String equipment_mark;
     private String equipment_model;
-    private Date equipment_year;
+    private LocalDate equipment_year;
 
     public int getEquipment_id() {
         return equipment_id;
@@ -51,11 +52,11 @@ public class Equipment {
         this.equipment_model = equipment_model;
     }
 
-    public Date getEquipment_year() {
+    public LocalDate getEquipment_year() {
         return equipment_year;
     }
 
-    public void setEquipment_year(Date equipment_year) {
+    public void setEquipment_year(LocalDate equipment_year) {
         this.equipment_year = equipment_year;
     }
 }

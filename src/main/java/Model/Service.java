@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.List;
+
 public class Service {
     private int serv_id;
     private String serv_name;
@@ -7,6 +9,9 @@ public class Service {
     private float serv_price;
     private int serv_count_people;
     private String serv_description;
+    public List<Integer> serv_tools;
+    public List<Integer> serv_materials;
+    public List<Integer> serv_equipment;
 
     public String getServ_description() {
         return serv_description;

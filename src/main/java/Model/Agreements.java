@@ -3,14 +3,14 @@ package Model;
 public class Agreements {
     private int agr_id;
     private String agr_templete;
-    Service parentService;
+    int parentServiceId;
 
-    public Service getParentService() {
-        return parentService;
+    public int getParentServiceId() {
+        return parentServiceId;
     }
 
-    public void setParentService(Service parentService) {
-        this.parentService = parentService;
+    public void setParentServiceId(int parentServiceId) {
+        this.parentServiceId = parentServiceId;
     }
 
     public int getAgr_id() {

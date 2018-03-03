@@ -10,4 +10,7 @@ public interface IDAOService {
     boolean delService(Service service);
     boolean editService(Service service);
     List<Service> getAllServices();
+    List<Integer> getToolsById(int id);
+    List<Integer> getMaterialssById(int id);
+    List<Integer> getEquipmentsById(int id);
 }
