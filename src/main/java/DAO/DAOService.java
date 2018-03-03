@@ -14,7 +14,7 @@ public class DAOService extends DAO implements IDAOService{
     public Service getServiceById(int id) {
         Service service = null;
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM `service` WHERE serv_id = ?");
+            PreparedStatement statement = connection.prepareStatement("SELECT serv_id, serv_name, serv_price, serv_time, serv_count_people, serv_description FROM `service` WHERE serv_id = ?");
             statement.setInt(1, id);
 
             ResultSet result = statement.executeQuery();
@@ -88,7 +88,7 @@ public class DAOService extends DAO implements IDAOService{
         List<Service> servicesList = new ArrayList<Service>();
 
         try{
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM `service`");
+            PreparedStatement statement = connection.prepareStatement("SELECT serv_name, serv_price, serv_time, serv_count_people, serv_description FROM `service`");
             //TODO заменить * последовательностью полей
             ResultSet result = statement.executeQuery();
             while (result.next()){
