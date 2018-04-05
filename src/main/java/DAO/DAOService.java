@@ -88,16 +88,17 @@ public class DAOService extends DAO implements IDAOService{
         List<Service> servicesList = new ArrayList<Service>();
 
         try{
-            PreparedStatement statement = connection.prepareStatement("SELECT serv_name, serv_price, serv_time, serv_count_people, serv_description FROM `service`");
+            PreparedStatement statement = connection.prepareStatement("SELECT serv_id, serv_name, serv_price, serv_time, serv_count_people, serv_description FROM `service`");
             //TODO заменить * последовательностью полей
             ResultSet result = statement.executeQuery();
             while (result.next()){
                 Service service = new Service();
+                service.setServ_id(result.getInt("serv_id"));
                 service.setServ_name(result.getString("serv_name"));
                 service.setServ_price(result.getFloat("serv_price"));
                 service.setServ_time(result.getFloat("serv_time"));
                 service.setServ_count_people(result.getInt("serv_count_people"));
-                service.setServ_description(result.getString("serv_descriptiion"));
+                service.setServ_description(result.getString("serv_description"));
                 servicesList.add((service));
             }
 
@@ -134,7 +135,7 @@ public class DAOService extends DAO implements IDAOService{
 
         try
         {
-            PreparedStatement statement = connection.prepareStatement("SELECT material_id FROM `m2m_serv_material` WHERE material_id = ?");
+            PreparedStatement statement = connection.prepareStatement("SELECT material_id FROM `m2m_serv_material` WHERE serv_id = ?");
             statement.setInt(1, id);
             ResultSet result = statement.executeQuery();
             while (result.next())

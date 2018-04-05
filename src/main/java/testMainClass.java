@@ -3,6 +3,8 @@ import DAO.DAOService;
 import Model.Agreements;
 import Model.Service;
 
+import java.util.List;
+
 public class testMainClass {
     public static void main(String[] args) {
         // Prints "Hello, World" to the terminal window.
@@ -13,25 +15,26 @@ public class testMainClass {
         service.setServ_count_people(1);
         service.setServ_time(13);
         service.setServ_description("bla-bla-bla");
-        service.setServ_name("First service");
+        service.setServ_name("Another one service");
         service.setServ_price(1500);
         boolean res = daoService.addService(service);
-//////////////////////////////////////////////////////////////////////////////////////////////
-        service = daoService.getServiceById(12);
+        //////////////////////////////////////////////////////////////////////////////////////////////
+        service = daoService.getServiceById(2);
 //////////////////////////////////////////////////////////////////////////////////////////////
         service.setServ_price(15555);
-        service.setServ_description("aaaa'; DROP TABLE `users`;");
+        service.setServ_description("pum-pum");
 //////////////////////////////////////////////////////////////////////////////////////////////
         res = daoService.editService(service);
 //////////////////////////////////////////////////////////////////////////////////////////////
-        service = daoService.getServiceById(8);
-        service = daoService.getServiceById(9);
+        service = daoService.getServiceById(100);
 //////////////////////////////////////////////////////////////////////////////////////////////
-        res = daoService.delService(service);
-        service = daoService.getServiceById(9);
+        //service = daoService.getServiceById(3);
+        //res = daoService.delService(service);
 
-        /*DAOAgreements daoAgreements = new DAOAgreements();
-        Agreements agreements = new Agreements();
-        agreements.setAgr_templete(*/
-    }
+        List<Service> allServices = daoService.getAllServices();
+        List<Integer> allTools = daoService.getToolsById(1);
+        List<Integer> allMaterials = daoService.getMaterialssById(1);
+        List<Integer> allEquipments = daoService.getEquipmentsById(1);
+        //TODO Lists of tools/materials/equipments + time_to_use?
+        }
 }
