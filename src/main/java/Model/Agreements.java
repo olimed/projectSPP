@@ -16,7 +16,7 @@ public class Agreements {
     public int getAgr_id() {
         return agr_id;
     }
-
+    //TODO what "setAgr_id(int agr_id) {this.agr_id = agr_id;}" means??????????????????
     public void setAgr_id(int agr_id) {
         this.agr_id = agr_id;
     }
