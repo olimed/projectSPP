@@ -13,7 +13,7 @@ public class DAOAgreements extends DAO implements IDAOAgreements {
     public Agreements getAgreementsByID(int ID) {
         Agreements agreement = null;
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM `agreements` WHERE adr_id=?");
+            PreparedStatement statement = connection.prepareStatement("SELECT agr_id, agr_template, service_serv_id FROM `agreements` WHERE agr_id=?");
             statement.setInt(1, ID);
             ResultSet result = statement.executeQuery();
             while (result.next()) {
@@ -47,7 +47,7 @@ public class DAOAgreements extends DAO implements IDAOAgreements {
     public boolean delAgreements(Agreements agreement) {
         boolean result = false;
         try {
-            PreparedStatement statement = connection.prepareStatement("DELETE * FROM `agreements` WHERE agr_id = ?");
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM `agreements` WHERE agr_id = ?");
             statement.setInt(1, agreement.getAgr_id());
             result = statement.executeUpdate() != 0;
         } catch (SQLException e) {
@@ -58,7 +58,7 @@ public class DAOAgreements extends DAO implements IDAOAgreements {
 
     public boolean editAgreement(Agreements agreement) {
         try{
-            PreparedStatement statement = connection.prepareStatement("UPDATE `agreements` SET agr_template = ?, service_serv_id = ? WHERE agr_id = ?)");
+            PreparedStatement statement = connection.prepareStatement("UPDATE `agreements` SET agr_template = ?, service_serv_id = ? WHERE agr_id = ?");
             statement.setString(1, agreement.getAgr_templete());
             statement.setInt(2,agreement.getParentServiceId());
             statement.setInt(3,agreement.getAgr_id());

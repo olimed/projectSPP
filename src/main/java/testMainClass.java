@@ -38,17 +38,18 @@ public class testMainClass {
 
         DAOAgreements daoagreement = new DAOAgreements();
         Agreements agreement = new Agreements();
-        agreement.setParentServiceId(2);
-        agreement.setAgr_templete("la-la-la");
+        agreement.setParentServiceId(4);
+        agreement.setAgr_templete("pum-pu-rum");
         //??public void setAgr_id(int agr_id)
 
-        daoagreement.addAgreements(agreement);
+        res = daoagreement.addAgreements(agreement);
 
         agreement = daoagreement.getAgreementsByID(1);
         agreement.setAgr_templete("pam-pam-pam");
-        daoagreement.editAgreement(agreement);
 
-        agreement = daoagreement.getAgreementsByID(2);
+        res = daoagreement.editAgreement(agreement);
+
+        agreement = daoagreement.getAgreementsByID(4);
 
         int agr_id = agreement.getAgr_id();
         int parentServId = agreement.getParentServiceId();
@@ -57,7 +58,5 @@ public class testMainClass {
         res = daoagreement.delAgreements(agreement);
 
         List<Agreements> allAgreements = daoagreement.getAllAgreements();
-
-
     }
 }
